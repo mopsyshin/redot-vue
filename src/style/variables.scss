@@ -1,0 +1,14 @@
+$shadow-1: 1px 2px 4px rgba(0,0,0,0.05);
+$white: #fff;
+$light-grey1: #999;
+$light-grey2: #bbb;
+$light-grey3: #ddd;
+$light-grey4: #f8f8f8;
+$dark-grey1: #666;
+$dark-grey2: #333;
+$point-red: #FF5D6E;
+
+@mixin background-hover {
+    background-color: #f4f4f4;
+    transition: 0.2s all;
+  }

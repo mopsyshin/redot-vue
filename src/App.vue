@@ -11,24 +11,27 @@ export default {
   name: 'App',
   data() {
     return {
-      loginState: false,
+      loginState: null,
     }
   },
   created() {
-    let loginState = this.loginState
-    bus.$emit('loginState', loginState)
+    this.$bus.$on('loginState', this.checkLogin)
+  },
+  mounted() {
+    this.initLoginState()
+  },
+  methods: {
+    initLoginState() {
+      this.loginState = false
+      let currentLoginState = this.loginState;
+      console.log('app init = ' + currentLoginState)
+      this.$bus.$emit('loginState', currentLoginState)
+    },
+    checkLogin(state) {
+      console.log('app check = ' + state)
+    }
   },
 };
 </script>
 
-<style>
-body, p, span, h1, h2, h3, h4, h5, h6, li, input {
-  margin: 0;
-  padding: 0;
-  color: #666666;
-  font-family: "Apple SD Gothic Neo", sans-serif, "marguen gothic", 'gulim', '맑은고딕';
-}
-div {
-  box-sizing: border-box;
-}
-</style>
+<style lang="scss" src="./main.scss"></style>

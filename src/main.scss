@@ -1,0 +1,22 @@
+@import "style/variables.scss";
+@import "style/animation.scss";
+@import "style/gnb.scss";
+
+body, p, span, h1, h2, h3, h4, h5, h6, li, input {
+  margin: 0;
+  padding: 0;
+  color: $dark-grey1;
+  font-family: "Apple SD Gothic Neo", sans-serif, "marguen gothic", 'gulim', '맑은고딕';
+}
+div, input {
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
