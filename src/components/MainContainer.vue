@@ -1,21 +1,30 @@
 <template>
   <div class="main-container">
-    <Gnb/>
-    <router-view></router-view>
+    <div class="view-container">
+    <transition name="main-view-transition" appear>
+      <div class="main-view">
+        <router-view name="mv"></router-view>
+      </div>
+    </transition>
+      <div class="rsb-view">
+        <router-view name="rsb"></router-view>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Gnb from './Gnb/Gnb'
+
+
 export default {
-  components: {
-    Gnb: Gnb,
-  }
+  created() {
+    
+  },
+
 }
 </script>
 
 <style>
-
 </style>
 
 

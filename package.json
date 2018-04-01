@@ -14,8 +14,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@firebase/app": "^0.1.10",
+    "@firebase/firestore": "^0.3.7",
     "firebase": "^4.12.1",
+    "lodash": "^4.17.5",
     "vue": "^2.5.2",
+    "vue-masonry": "^0.10.17",
     "vue-router": "^3.0.1",
     "vue-session": "^1.0.0"
   },

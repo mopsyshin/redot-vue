@@ -1,5 +1,5 @@
 <template>
-  <div class="channel">
+  <div class="container-fullsize channel">
     channel
   </div>
 </template>

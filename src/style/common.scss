@@ -1,0 +1,27 @@
+.bottom-right-button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin: 70px 0px;
+    button {
+        padding: 9px 26px;
+        border-radius: 100px;
+        font-size: 14px;
+        margin-left: 14px;
+        &.btn-negative {
+            border: 1px solid #bbb;
+            color: #bbb;    
+        }
+        &.btn-positive {
+            border: 1px solid $active-blue;
+            background-color: $active-blue;
+            color: #fff;
+            &:hover {
+                background-color: $active-blue-hover;
+            }
+            &:disabled {
+                border: 1px solid $light-grey3;
+                background-color: $light-grey3;
+            }
+        }
+    }
+}

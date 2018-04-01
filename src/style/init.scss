@@ -1,0 +1,126 @@
+body, p, span, h1, h2, h3, h4, h5, h6, li, ul, input {
+    margin: 0;
+    padding: 0;
+    font-family: "Apple SD Gothic Neo", Helvetica, Arial, sans-serif, "marguen gothic", 'gulim', '맑은고딕';
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  div, input {
+    box-sizing: border-box;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  body {
+    color: $dark-grey1;
+  }
+  div {
+    transition: all 0.3s;
+  }
+  button {
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:focus {
+      outline: none;
+    }
+  }
+  input:focus {
+    outline: none;
+  }
+  ::-webkit-scrollbar-track
+   {
+    border-radius: 2px;
+    background-color: #ffffff;
+    opacity: 0;
+   }
+  
+   ::-webkit-scrollbar
+   {
+    width: 0px;
+    background-color: #ffffff;
+    opacity: 0;
+    display: none;
+   }
+  
+   ::-webkit-scrollbar-thumb
+   {
+    border-radius: 2px;
+    background-color: #eee;
+   }
+  
+  .view-container {
+    
+  }
+  .container-fullsize {
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 24px 300px;
+    min-height: 100vh;
+    margin-top: 56px;
+  }
+  @media (max-width: 2148px) {
+    .container-fullsize {
+      max-width: 1848px;
+    }
+  }
+  @media (max-width: 1848px) {
+    .container-fullsize {
+      max-width: 1548px;
+    }
+  }
+  @media (max-width: 1548px) {
+    .container-fullsize {
+      max-width: 1248px;
+    }
+  }
+  @media (max-width: 1248px) {
+    .container-fullsize {
+      max-width: 948px;
+    }
+  }
+  @media (max-width: 948px) {
+    .container-fullsize {
+      max-width: 648px;
+    }
+  }
+  .container-768 {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 100vh;
+    padding: 30px 24px;
+    margin-top: 56px;
+  }
+  
+  .btn-upload {
+    width: 60px;
+    height: 60px;
+    border-radius: 48px;
+    position: fixed;
+    right: 30px;
+    bottom: 45px;
+    background-color: #fff;
+    box-shadow: $shadow-1;
+  }
+  
+  .main-view {
+  
+  }
+
+  .rsb-view {
+    display: none;
+    position: fixed;
+    top: 56px;
+    right: 0;
+    width: 300px;
+    min-height: 100vh;
+    background-color: #fff;
+    box-shadow: $shadow-2;
+    
+  }

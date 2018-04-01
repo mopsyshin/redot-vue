@@ -1,13 +1,15 @@
 <template>
-  <div class="signup">
-    
+  <div class="container-768 container-signup">
+    <transition name="ltrslide" mode="out-in" appear>
+    <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-  export default {
-
-  }
+export default {
+  
+}
 </script>
 <style>
 

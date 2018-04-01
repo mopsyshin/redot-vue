@@ -2,11 +2,16 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import MainContainer from '../components/MainContainer';
 import Home from '../components/Home/Home';
+import HomeRsb from '../components/Home/HomeRsb';
 import Channel from '../components/Channel/Channel';
 import Mypage from '../components/Mypage/Mypage';
 import Post from '../components/Post/Post';
 import Setting from '../components/Setting/Setting';
+import Store from '../components/Store/Store';
+import Upload from '../components/Upload/Upload';
 import Signup from '../components/Signup/Signup';
+import Terms from '../components/Signup/Terms';
+import Register from '../components/Signup/Register';
 
 Vue.use(Router);
 
@@ -20,32 +25,77 @@ export default new Router({
       children: [
         {
           path: '/home',
-          component: Home,
+          name: 'home',
+          components: {
+            mv: Home,
+            rsb: HomeRsb
+          },
         },
         {
           path: '/channel',
-          component: Channel,
+          name: 'channel',
+          components: {
+            mv: Channel,
+            rsb: HomeRsb
+          },
         },
         {
-          path: '/mypage/:username',
+          path: '/mypage/:author',
+          name: 'mypage',
           props: true,
-          component: Mypage,
+          components: {
+            mv: Mypage,
+            rsb: HomeRsb
+          },
         },
         {
-          path: '/post/:postid',
+          path: '/post/:id',
+          name: 'post',
           props: true,
-          component: Post,
+          components: {
+            mv: Post,
+            rsb: HomeRsb
+          },
         },
         {
           path: '/setting',
-          component: Setting,
+          name: 'setting',
+          components: {
+            mv: Setting,
+            rsb: HomeRsb
+          },
         },
         {
-          path: '/signup',
-          components: Signup,
-        }
-      ]
+          path: '/store',
+          name: 'store',
+          components: {
+            mv: Store,
+            rsb: HomeRsb
+          },
+        },
+      ],
     },
-   
+    {
+      path: '/upload',
+      name: 'upload',
+      component: Upload,
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: Signup,
+      children: [
+        {
+          path: '/signup/terms',
+          name: 'terms',
+          component: Terms,
+        },
+        {
+          path: '/signup/register',
+          name: 'register',
+          component: Register,
+        }
+      ],
+    },
   ],
 });

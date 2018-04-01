@@ -1,9 +1,7 @@
 <template>
   <div class="container-gnb">
     <div class="gnb-left">
-      <router-link to="./home">
-      <img class="gnb-logo" src="../../assets/img-logo.svg" alt="">
-      </router-link>
+      <img @click="toRouter('home')" class="gnb-logo" src="../../assets/img-logo.svg" alt="">
       <div class="wrapper-search-input">
         <img src="../../assets/gnb-search.svg" alt="">
         <input type="text" placeholder="관심있는 채널을 찾아보세요">
@@ -21,7 +19,7 @@
             {{ notiCount }}
           </div>
         </div>
-        <div class="user-box">
+        <div class="user-box" @click="toRouter('mypage')">
           <span><b>mopsy.D</b> 님</span>
           <div class="user-icon-box"></div>
         </div>
@@ -33,8 +31,8 @@
     <transition name="fadeoutin" mode="out-in" appear>
       <!-- non login Session -->
       <div class="gnb-right logout-state" v-if="!loginState">
-        <span>채널 둘러보기</span>
-        <span class="btn-signin" @click="login">SIGN IN / SIGN UP</span>
+        <span @click="toRouter('channel')">채널 둘러보기</span>
+        <span class="btn-signin" @click="toggleLoginModal">SIGN IN / SIGN UP</span>
       </div>
     </transition>
   </div>
@@ -57,14 +55,19 @@ export default {
   },
   methods: {
     getLoginState(state) {
-      console.log('gnb state = ' + state)
       this.loginState = state
     },
+    toggleLoginModal() {
+      this.$bus.$emit('toggleLoginModal', true)
+    },
     login() {
-      this.$bus.$emit('loginState', true)
+      this.$bus.$emit('login')
     },
     logout() {
-      this.$bus.$emit('loginState', false)
+      this.$bus.$emit('logout')
+    },
+    toRouter( routeName ) {
+      this.$router.push( { name : routeName })
     }
   },
 }

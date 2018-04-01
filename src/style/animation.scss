@@ -1,4 +1,4 @@
-@keyframes in {
+@keyframes containerIn {
   from {
     opacity: 0;
     transform: translateY(-20px);
@@ -8,7 +8,7 @@
     transform: translateY(0px);
   }
 }
-@keyframes out {
+@keyframes containerOut {
   from {
     opacity: 1;
     transform: translateY(0px);
@@ -18,9 +18,53 @@
     transform: translateY(20px);
   }
 }
+@keyframes opacityIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes ltrSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+@keyframes ltrSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+}
 .fadeoutin-enter-active {
-  animation: in 0.3s;
+  animation: containerIn 0.3s;
 }
 .fadeoutin-leave-active {
-  animation: out 0.3s;
+  animation: containerOut 0.3s;
+}
+.main-view-transition-enter-active {
+  animation: containerIn 0.3s;
+}
+
+.opacity-enter-active {
+  animation: opacityIn 0.3s;
+}
+.opacity-leave-active {
+  animation: opacityIn 0.3s reverse;
+}
+.ltrslide-enter-active {
+  animation: ltrSlideIn 0.3s;
+}
+.ltrslide-leave-active {
+  animation: ltrSlideOut 0.3s;
 }

@@ -1,0 +1,71 @@
+.container-signup {
+    .terms-container {
+        position: absolute;
+        width: 100%;
+        max-width: 768px;
+        padding: 30px 100px;
+    }
+    .header {
+        .title {
+            font-size: 50px;
+            font-weight: 900;
+            margin: 40px 0px;
+        }
+    }
+    .contents-wrapper {
+        margin: 30px 0px 40px;
+        .contents-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .contents-title {
+                font-size: 20px;
+                font-weight: 700;
+                margin-bottom: 15px;
+            }
+        }
+        .contents-box {
+            font-size: 13px;
+            line-height: 24px;
+            width: 100%;
+            height: 150px;
+            overflow: scroll;
+            padding: 15px 18px;
+            border-radius: 2px;
+            border: 1px solid #eee;
+            background-color: #fdfdfd;
+            color: #aaa;
+
+        }
+    }
+}
+.register-input-area {
+    display: flex;
+    padding: 20px 0px;
+    .input-label {
+        font-weight: 800;
+        width: 120px;
+    }
+    .input-text {
+        position: relative;
+        top: -8px;
+        input {
+            width: 240px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0px;
+            font-size: 14px;
+            &::placeholder {
+                color: #ccc;
+            }
+        }
+        .msg-err {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    }
+}
+
+.container-modal-login {
+    
+}

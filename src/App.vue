@@ -1,36 +1,67 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <Gnb/>
+    <transition name="fadeoutin" appear>
+      <router-view></router-view>
+    </transition>
+    <transition name="opacity" appear>
+    <LoginModal v-if="loginModal"/>
+    </transition>
   </div>
 </template>
 
 <script>
-import MainContainer from './components/MainContainer';
+import Gnb from './components/Gnb/Gnb'
+import LoginModal from './components/Signup/LoginModal'
+import { auth } from './firebase'
 
 export default {
   name: 'App',
   data() {
     return {
       loginState: null,
+      loginModal: false,
     }
   },
   created() {
-    this.$bus.$on('loginState', this.checkLogin)
+    this.$bus.$on('toggleLoginModal', this.toggleLoginModal)
+    this.$bus.$on('logout', this.logout)
   },
   mounted() {
     this.initLoginState()
   },
   methods: {
     initLoginState() {
-      this.loginState = false
-      let currentLoginState = this.loginState;
-      console.log('app init = ' + currentLoginState)
-      this.$bus.$emit('loginState', currentLoginState)
+      var currentLoginState
+      auth.onAuthStateChanged( user => {
+        if( user ) {
+          this.loginState = true
+          currentLoginState = this.loginState
+          this.$bus.$emit('loginState', currentLoginState)
+        } else {
+          this.loginState = false
+          currentLoginState = this.loginState
+          this.$bus.$emit('loginState', currentLoginState)
+        }
+      })
     },
-    checkLogin(state) {
-      console.log('app check = ' + state)
+    toggleLoginModal(a) {
+      this.loginModal = a;
+    },
+    logout() {
+      auth.signOut().then(() => {
+        this.loginState = false
+        currentLoginState = this.loginState
+        this.$bus.$emit('loginState', currentLoginState)
+      }).catch(error => {
+
+      });
     }
   },
+  components: {
+    Gnb: Gnb,
+    LoginModal: LoginModal,
+  }
 };
 </script>
 

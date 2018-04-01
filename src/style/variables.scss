@@ -1,4 +1,6 @@
-$shadow-1: 1px 2px 4px rgba(0,0,0,0.05);
+$shadow-3: 2px 4px 22px rgba(0, 0, 0, 0.08);
+$shadow-2: 0px 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-1: 0px 2px 8px rgba(0, 0, 0, 0.04);
 $white: #fff;
 $light-grey1: #999;
 $light-grey2: #bbb;
@@ -7,6 +9,8 @@ $light-grey4: #f8f8f8;
 $dark-grey1: #666;
 $dark-grey2: #333;
 $point-red: #FF5D6E;
+$active-blue: #5ebfff;
+$active-blue-hover: #3cb1ff;
 
 @mixin background-hover {
     background-color: #f4f4f4;
