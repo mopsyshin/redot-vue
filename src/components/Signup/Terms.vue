@@ -1,49 +1,51 @@
 <template>
     <div class="terms-container">
-    <div class="header">
-        <div class="title">
-            회원가입
-        </div>
-        <div class="signup-navigation">
-            
-        </div>
-        </div>
-        <div class="contents-wrapper">
-        <div class="contents-header">
-            <div class="contents-title">
-            Redot 서비스 이용약관 동의
+        <div class="page-header">
+            <div class="title">
+                회원가입
             </div>
-            <CheckBox/>
-        </div>
-        <div class="contents-box">
-            {{ useterms }}
-        </div>
-        </div>
-        <div class="contents-wrapper">
-        <div class="contents-header">
-            <div class="contents-title">
-            Redot 커뮤니티 규정
+            <div class="signup-navigation">
+                
             </div>
-            <CheckBox/>
         </div>
-        <div class="contents-box">
-            {{ communityrule }}
-        </div>
-        </div>
-        <div class="contents-wrapper">
-        <div class="contents-header">
-            <div class="contents-title">
-            Redot 개인정보 이용약관
+        <div class="page-contents">
+            <div class="contents-wrapper">
+                <div class="contents-header">
+                    <div class="contents-title">
+                    Redot 서비스 이용약관 동의
+                    </div>
+                    <CheckBox/>
+                </div>
+                <div class="contents-box">
+                    {{ useterms }}
+                </div>
             </div>
-            <CheckBox/>
-        </div>
-        <div class="contents-box">
-            {{ privacyterms }}
-        </div>
-        </div>
-        <div class="bottom-right-button-group">
-        <button class="btn-negative" @click="back">돌아가기</button>
-        <button class="btn-positive" @click="toRouter('register')">동의하기</button>
+            <div class="contents-wrapper">
+                <div class="contents-header">
+                    <div class="contents-title">
+                    Redot 커뮤니티 규정
+                    </div>
+                    <CheckBox/>
+                </div>
+                <div class="contents-box">
+                    {{ communityrule }}
+                </div>
+                </div>
+            <div class="contents-wrapper">
+                <div class="contents-header">
+                    <div class="contents-title">
+                    Redot 개인정보 이용약관
+                    </div>
+                    <CheckBox/>
+                </div>
+                <div class="contents-box">
+                    {{ privacyterms }}
+                </div>
+            </div>
+            <div class="bottom-right-button-group">
+                <button class="btn-negative" @click="back">돌아가기</button>
+                <button class="btn-positive" @click="toRouter('register')">동의하기</button>
+            </div>
         </div>
     </div>
 </template>

@@ -25,3 +25,67 @@
         }
     }
 }
+.common-input-area {
+    padding: 20px 0px;
+    .input-label {
+        font-weight: 800;
+        width: 120px;
+    }
+    .input-text {
+        position: relative;
+        input {
+            width: 240px;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0px;
+            font-size: 14px;
+            &::placeholder {
+                color: #ccc;
+            }
+        }
+        textarea {
+            margin-top: 10px;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            resize: none;  
+            font-size: 14px; 
+            &::placeholder {
+                color: #ccc;
+            }
+        }
+        .msg-err {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    }
+}
+
+.page-header {
+    .title {
+        font-size: 50px;
+        font-weight: 900;
+    }
+    .desc {
+        font-size: 14px;
+        color: $light-grey1;
+    }
+}
+.page-contents {
+    margin-top: 40px;
+}
+
+
+
+
+.btn-upload {
+    width: 60px;
+    height: 60px;
+    border-radius: 48px;
+    position: fixed;
+    right: 30px;
+    bottom: 45px;
+    background-color: #fff;
+    box-shadow: $shadow-1;
+  }
+  

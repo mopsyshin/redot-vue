@@ -43,29 +43,22 @@ export default {
   name: 'Gnb',
   data() {
     return {
-      loginState: null,
       notiCount: 12,
     }
   },
   created() {
-    this.$bus.$on('loginState', this.getLoginState);
   },
   mounted() {
 
   },
   methods: {
-    getLoginState(state) {
-      this.loginState = state
-    },
     toggleLoginModal() {
       this.$bus.$emit('toggleLoginModal', true)
     },
     login() {
       this.$bus.$emit('login')
     },
-    logout() {
-      this.$bus.$emit('logout')
-    },
+
     toRouter( routeName ) {
       this.$router.push( { name : routeName })
     }

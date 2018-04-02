@@ -111,7 +111,7 @@ export default {
         });
       },
       getChannels() {
-        db.collection('channel').orderBy("channel_created_date").limit(10)
+        db.collection('channel').orderBy("channel_created_date").limit(8)
         .get().then( querySnapshot => {
           querySnapshot.forEach(doc => {
             this.channels.push(doc.data());

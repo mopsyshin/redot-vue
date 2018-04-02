@@ -1,6 +1,6 @@
 <template>
     <div class="terms-container">
-      <div class="header">
+      <div class="page-header">
         <div class="title">
             정보입력
         </div>
@@ -8,6 +8,7 @@
             
         </div>
     </div>
+    <div class="page-contents">
     <div class="register-input-area">
         <div class="input-label">
             이메일
@@ -44,6 +45,7 @@
             <input type="password" placeholder="비밀번호 재입력" v-model="passwordConfirm">
             <p class="msg-err"></p>
         </div>
+    </div>
     </div>
     
     <div class="bottom-right-button-group">
