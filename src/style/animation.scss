@@ -46,6 +46,17 @@
     transform: translateX(-50px);
   }
 }
+
+@keyframes bannerAction {
+  from {
+    margin-top: -400px;
+    opacity: 0;
+  }
+  to {
+    margin-top: 56px;
+    opacity: 1;
+  }
+}
 .fadeoutin-enter-active {
   animation: containerIn 0.3s;
 }
@@ -67,4 +78,11 @@
 }
 .ltrslide-leave-active {
   animation: ltrSlideOut 0.3s;
+}
+
+.banneraction-enter-active {
+  animation: bannerAction 1s;
+}
+.banneraction-leave-active {
+  animation: bannerAction 1s reverse;
 }

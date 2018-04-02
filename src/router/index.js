@@ -4,6 +4,7 @@ import MainContainer from '../components/MainContainer';
 import Home from '../components/Home/Home';
 import HomeRsb from '../components/Home/HomeRsb';
 import Channel from '../components/Channel/Channel';
+import AddChannel from '../components/Channel/AddChannel';
 import Mypage from '../components/Mypage/Mypage';
 import Post from '../components/Post/Post';
 import Setting from '../components/Setting/Setting';
@@ -12,6 +13,7 @@ import Upload from '../components/Upload/Upload';
 import Signup from '../components/Signup/Signup';
 import Terms from '../components/Signup/Terms';
 import Register from '../components/Signup/Register';
+
 
 Vue.use(Router);
 
@@ -96,6 +98,11 @@ export default new Router({
           component: Register,
         }
       ],
+    },
+    {
+      path: '/addChannel',
+      name: 'addChannel',
+      component: AddChannel,
     },
   ],
 });

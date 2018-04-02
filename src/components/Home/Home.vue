@@ -1,5 +1,6 @@
 <template>
   <div class="home" :class="{'leave-container':leaveContainer}">
+    <transition name="banneraction" appear>
     <div class="home-banner" v-if="!loginState">
       <div class="service-message">
         커뮤니티 생태계에 새로운 점을 찍다
@@ -13,6 +14,7 @@
         <button>리닷이 궁금하니?</button>
       </div>
     </div>
+    </transition>
     <div class="container-fullsize">
       <div class="top-channel-list">
         <div class="channel-list-item" v-for="channel in channels" :key="channel.channel_name">
@@ -41,12 +43,12 @@
               {{ post.title }}
               <span class="comment-count">{{ post.comment_count }}</span>
             </h3>
-            <div class="image">
+            <div class="image" v-if="image">
               <img :src="post.cover_image" alt="">
             </div>
             <p class="author">by <b>{{ post.author }}</b></p>
             <div class="footer">
-              <div>{{ post.timestamp }}</div>
+              <div class="date">{{ post.date }}</div>
               <div></div>
             </div>
           </div>
@@ -71,7 +73,8 @@ export default {
         channels: [],
         leaveContainer: false,
         next: {},
-        loginState: null,
+        loginState: true,
+        image: false,
       }
     },
     watch: {
@@ -128,7 +131,6 @@ export default {
                   .startAfter(lastVisible)
                   .limit(20);
         }).catch(err => {
-            console.log(err)
             var message = "마지막 포스트입니다"
             this.$bus.$emit('finalScroll', message)
         })
@@ -162,9 +164,7 @@ export default {
         var winHeight = window.innerHeight;
         var currentScroll = getScrollY();
         var pos = docHeight - (winHeight + currentScroll);
-        console.log(pos)
         if ( pos < 100 ) {
-          console.log(pos)
           this.loadmore();
         }
       }, 100),
