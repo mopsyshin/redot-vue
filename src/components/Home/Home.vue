@@ -23,11 +23,12 @@
         </span>
       </div>
       <div class="trending-channel-list">
-        <transition-group name="small-fade-in">
-        <div class="channel-list-item" v-for="channel in channels" :key="channel.channel_name" :style="{ backgroundColor : channel.channel_color}">
+        <div class="channel-list-item" v-if="channelReady" v-for="channel in channels" :key="channel.channel_name" :style="{ backgroundColor : channel.channel_color}">
           #{{ channel.channel_name }}
         </div>
-        </transition-group>
+        <div class="channel-list-item skeleton" v-if="!channelReady" v-for="(item, index) in 10" :key="index">
+          <div></div>
+        </div>
       </div>  
       <div class="home-title-label">
         Trending Posts
@@ -43,11 +44,25 @@
             글 하나<br/>
             써 볼래요?
           </div>
+          <transition-group name="small-fade-in" mode="out-in" appear>
           <PostCard v-for="post in posts" 
                     :key="post.id"
                     v-masonry-tile 
                     class="post-list-item"
-                    :post="post" />
+                    :post="post" 
+                    />
+          <div v-masonry-tile class="post-list-item skeleton" v-if="!postReady" v-for="(item, index) in 12" :key="index">
+            <div class="channel"></div>
+              <div class="title1">
+              </div>
+              <div class="title2">
+              </div>
+              <div class="author">
+              </div>
+              <div class="footer">
+              </div>
+          </div>
+          </transition-group>
       </div>
     </div>
   </div>
@@ -76,6 +91,9 @@ export default {
       },
       recoCh() {
         return this.$store.state.recoCh
+      },
+      channelReady() {
+        return this.$store.state.channelReady
       }
     },
     created() {

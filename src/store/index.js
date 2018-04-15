@@ -14,6 +14,7 @@ const store = new Vuex.Store({
         channels: [],
         recoCh: '',
         rsbState: true,
+        channelReady: false,
     },
     getters: {
         email: state => {
@@ -38,6 +39,9 @@ const store = new Vuex.Store({
         },
         toggleRsb(state) {
             state.rsbState = !state.rsbState
+        },
+        channelReady(state, payload) {
+            state.channelReady = payload.value
         }
     },
     actions: {
@@ -68,6 +72,10 @@ const store = new Vuex.Store({
             })
         },
         getChannels() {
+            store.commit({
+                type: 'channelReady',
+                value: false,
+            })
             var channels = []
             var recoCh = []
             db.collection('channel').orderBy("channel_created_date").limit(8)
@@ -77,6 +85,10 @@ const store = new Vuex.Store({
                 recoCh.push(doc.data().channel_name)
               })
             }).then( () => {
+                store.commit({
+                    type: 'channelReady',
+                    value: true,
+                })
                 store.commit({
                     type: 'setChannels',
                     channels: channels,

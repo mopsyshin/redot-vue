@@ -16,6 +16,11 @@ Vue.use(VueTextareaAutosize)
 
 // 모든 컴포넌트에서 공유하는 data 및 methods Mixin
 Vue.mixin({
+  data() {
+    return {
+      postReady: false,
+    }
+  },
   computed: {
     rsbIsOpen() {
       return this.$store.state.rsbState
@@ -32,11 +37,15 @@ Vue.mixin({
       this.$router.go(-1)
     },
     getPosts() {
+      this.postReady = false
       var first = db.collection('posts').orderBy("date", "desc").limit(20)
       first.get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
           this.posts.push(doc.data());
         });
+      }).then(() => {
+        this.postReady = true
+        console.log('off')
       });
         return first.get().then(querySnapshot => {
         var lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];

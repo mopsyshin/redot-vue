@@ -54,6 +54,10 @@
     .trending-channel-list {
         margin-bottom: 46px;
         min-height: 34px;
+        span {
+            display: flex;
+            flex-flow: wrap;
+        }
         .channel-list-item {
             display: inline-block;
             padding: 4px 20px 6px 18px;
@@ -67,6 +71,17 @@
                 transform: translateY(-2px);
                 filter: brightness(1.1);
                 box-shadow: $shadow-2;
+            }
+            &.skeleton {
+                padding: 0px;
+                div{
+                    background-color: #f0f0f0;
+                    border-radius: 100px;
+                    animation: skeleton 1.5s infinite;
+                    width: 80px;
+                    height: 34px;
+                    padding: 0px;
+                }
             }
         }
     }
@@ -89,6 +104,37 @@
             font-weight: 600;
             color: #ddd;
             padding-bottom: 60px;
+        }
+        &.skeleton {
+            div {
+                background-color: #f0f0f0;
+                border-radius: 100px;
+                animation: skeleton 3s infinite;
+            }
+            .channel {
+                height: 16px;
+                width: 42px;
+                margin-bottom: 8px;
+            }
+            .title1 {
+                height: 32px;
+                width: 180px;
+                margin-bottom: 10px;
+            }
+            .title2 {
+                height: 32px;
+                width: 100px;
+                margin-bottom: 24px;
+            }
+            .author {
+                height: 14px;
+                width: 42px;
+                margin-bottom: 24px;
+            }
+            .footer {
+                width: 100px;
+                height: 12px;
+            }
         }
     }
     .container-post-item {
