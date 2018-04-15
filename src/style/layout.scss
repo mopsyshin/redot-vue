@@ -21,43 +21,87 @@
 
 
 .main-view {
-  
+  width: calc(100vw - 360px);
+  &.fullsize {
+    width: 100vw;
+  }
 }
 
 .rsb-view {
-  display: none;
+  display: block;
   position: fixed;
+  padding: 42px 36px;
   top: 56px;
   right: 0;
-  width: 300px;
+  width: 360px;
   min-height: 100vh;
   background-color: #fff;
   box-shadow: $shadow-2;
-  
+  &.close {
+    opacity: 0;
+    transform: translateX(100%)
+  }
 }
+
+.btn-toggle-rsb {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  top: 100px;
+  right: 24px;
+  background-color: $white;
+  z-index: 1000;;
+  box-shadow: $shadow-2;
+  border-radius: 24px;
+  img {
+    position: relative;
+    left: -1px;
+    transform: rotate(-90deg);
+    transition: all 0.3s;
+    &.close {
+      transform: rotate(90deg);
+    }
+  }
+}
+
 
 @media (max-width: 2148px) {
     .container-fullsize {
-      max-width: 1848px;
+      max-width: 1548px;
+      &.fullsize {
+        max-width: 1848px;
+      }
     }
   }
   @media (max-width: 1848px) {
     .container-fullsize {
-      max-width: 1548px;
+      max-width: 1248px;
+      &.fullsize {
+        max-width: 1548px;
+      }
     }
   }
   @media (max-width: 1548px) {
     .container-fullsize {
-      max-width: 1248px;
+      max-width: 948px;
+      &.fullsize {
+        max-width: 1248px;
+      }
     }
   }
   @media (max-width: 1248px) {
     .container-fullsize {
-      max-width: 948px;
+      max-width: 648px;
+      &.fullsize {
+        max-width: 948px;
+      }
     }
   }
   @media (max-width: 948px) {
     .container-fullsize {
-      max-width: 648px;
+      max-width: 348px;
+      &.fullsize {
+        max-width: 648px;
+      }
     }
   }

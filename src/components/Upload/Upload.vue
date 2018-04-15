@@ -1,73 +1,135 @@
 <template>
   <div class="container-768 upload">
-    <h1>Upload</h1>
-    <div>
-      <label for="">title</label>
-      <input type="text"
-              v-model="title">
+    <div class="upload-container">
+      <div class="close-wrapper">
+        <img src="@/assets/icn-close.svg" alt="" @click="back">
+      </div>
+      <div class="wrapper-select-channel">
+        <Dropdown :items="channel_names" @itemSelected="channelSelected"/>
+      </div>
+      <div class="wrapper-title">
+        <textarea-autosize 
+              type="text"
+               class="title-input"
+               v-model="title"
+               placeholder="제목을 입력해주세요"
+               >
+        </textarea-autosize>
+      </div>
+      <quill-editor v-model="body"
+                    ref="myQuillEditor"
+                    :options="editorOption"
+                    class="custom-editor">
+      </quill-editor>
+      <div id="toolbar" class="custom-toolbar">
+        <!-- Add buttons as you would before -->
+        <select class="ql-size">
+          <option value="small"></option>
+          <!-- Note a missing, thus falsy value, is used to reset to default -->
+          <option selected></option>
+          <option value="large"></option>
+          <option value="huge"></option>
+        </select>
+        <select class="ql-align"></select>
+        <button class="ql-bold"></button>
+        <button class="ql-italic"></button>
+        <button class="ql-blockquote"></button>
+        <button class="ql-code-block"></button>
+        <button class="ql-image"></button>
+        <button class="ql-link"></button>
+        
+        <!-- But you can also add your own -->
+      </div>
+      <div class="bottom-right-button-group">
+          <button class="btn-positive" @click="addPost" :disabled="isEmpty">작성완료</button>
+      </div>
     </div>
-    <div>
-      <label for="">Channel</label>
-      <select name="" id="" v-model="selectedChannel">
-        <option :value="channel.channel_name" v-for="channel in channels" :key="channel.channel_name">{{ channel.channel_name }}</option>
-      </select>
-    </div>
-    <div>
-      <textarea v-model="body" name="" id="" cols="30" rows="10"></textarea>
-    </div>
-    <button  @click="addPost">
-        Add Post
-    </button>
   </div>
 </template>
 
 <script>
-import { db } from '../../firebase';
-import { auth } from '../../firebase';
+import { db, auth } from '../../firebase';
+import moment from 'moment';
+import Vue from 'vue'
+import Dropdown from '../GlobalModules/Dropdown'
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor, {
+
+})
 
 export default {
   name: 'Upload',
   data() {
     return {
-      posts: [],
       title: '',
       body: '',
-      author: '',
-      channels: [],
       selectedChannel: '',
+      selectedChannelColor: '',
+      editorOption: {
+            // debug: 'info',
+            modules: {
+              toolbar: '#toolbar'
+            },
+            placeholder: '본문을 입력해주세요',
+            readOnly: true,
+            theme: 'snow'
+      },
     }
   },
-  created() {
-    this.getAuth()
-    this.getChannels() 
+  computed: {
+    author() {
+      return this.$store.getters.nickname
+    },
+    channels(){
+      return this.$store.state.channels
+    },
+    channel_names() {
+      var newArr = [] 
+      this.channels.forEach( item => {
+        newArr.push(item.channel_name)
+      })
+      return newArr
+    },
+    isEmpty() {
+      if ( this.title | this.body == '') {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   methods: {
+    channelSelected(chName) {
+      this.selectedChannel = chName
+      this.channels.forEach( item => {
+        if ( chName == item.channel_name ) {
+          this.selectedChannelColor = item.channel_color
+        }
+      })
+    },
     addPost() {
       const ref = db.collection('posts').doc()
         ref.set({
           id: ref.id,
+          color: this.selectedChannelColor,
           channel: this.selectedChannel,
           title: this.title,
           body: this.body,
           author: this.author,
-          date: new Date()
+          date: moment().format('YYYY-MM-DD, HH:mm:ss'),
           }).then(() => { 
              alert('success')
         })
     },
-    getChannels() {
-      db.collection('channel').orderBy("channel_created_date").limit(10)
-        .get().then( querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.channels.push(doc.data());
-          })
-        })
-    },
-    getAuth() {
-      var user = auth.currentUser
-      var email = user.email
-      this.author = email
-    }
+  },
+  components: {
+    Dropdown: Dropdown
   }
 }
 </script>

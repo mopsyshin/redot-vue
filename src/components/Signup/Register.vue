@@ -76,23 +76,19 @@ export default {
     back() {
       this.$router.go(-1)
     },
-    toRouter( routeName ) {
-        this.$router.push({ name : routeName })
-    },
     submit() {
         this.submitProcess = true
         var email = this.email
         var password = this.password
-        auth.createUserWithEmailAndPassword(email, password).then(() => {
-            db.collection('user').doc(email).set({
-                email: this.email,
-                nickname: this.nickname,
-            }).then(() => {
-                this.$router.push({ name : 'home' })
-            }).catch( error => {
-                alert(error)
-                this.submitProcess = false
-            })
+        auth.createUserWithEmailAndPassword(email, password).then( user => {
+            user.updateProfile({
+                displayName: this.nickname
+                }).then(function() {
+                // Update successful.
+                }).catch(function(error) {
+                // An error happened.
+                });
+            this.addUserToFirestore()
         }).catch( error => {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -100,6 +96,20 @@ export default {
             this.submitProcess = false
         })
     },
+    addUserToFirestore() {
+        const ref = db.collection('users').doc()
+        ref.set({
+            id: ref.id,
+            email: this.email,
+            nickname: this.nickname,
+            date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+          }).then(() => {
+                this.$router.push({ name : 'home' })
+            }).catch( error => {
+                alert(error)
+                this.submitProcess = false
+            })
+    }
   },
   components: {
     CheckBox: CheckBox,

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-768 add-channel">
+  <div class="container-768 add-channel-container">
         <div class="page-header">
             <div class="title">채널 생성하기</div>
             <div class="desc">채널을 생성하고, 당신만의 커뮤니티를 키워보세요!</div>
@@ -37,13 +37,15 @@
         </div>
         <div class="bottom-right-button-group">
             <button class="btn-negative" @click="back">취소</button>
-            <button class="btn-positive" >생성하기</button>
+            <button class="btn-positive" @click="addChannel">생성하기</button>
         </div>
   </div>
 </template>
 
 <script>
 import ChannelColorItem from './ChannelColorItem'
+import { db, auth } from '../../firebase';
+import moment from 'moment';
 
   export default {
     data() {
@@ -71,12 +73,30 @@ import ChannelColorItem from './ChannelColorItem'
             channelDesc: '',
         }
     },
+    computed: {
+        channelCreator() {
+            return this.$store.getters.nickname
+        }
+    },
     methods: {
         submit() {
             
         },
         selectColor( color, index ) {
             this.selectedColor = color
+        },
+        addChannel() {
+            const ref = db.collection('channel').doc()
+                ref.set({
+                channel_id : ref.id,
+                channel_admin: this.channelCreator,
+                channel_name: this.channelName,
+                channel_color: this.selectedColor,
+                channel_desc: this.channelDesc,
+                channel_created_date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+                }).then(() => { 
+                    alert('success')
+            })
         },
     },
     components: {

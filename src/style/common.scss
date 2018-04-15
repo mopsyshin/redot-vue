@@ -1,3 +1,7 @@
+::placeholder {
+    color: #ccc;
+}
+
 .bottom-right-button-group {
     display: flex;
     justify-content: flex-end;
@@ -8,13 +12,13 @@
         font-size: 14px;
         margin-left: 14px;
         &.btn-negative {
-            border: 1px solid #bbb;
-            color: #bbb;    
+            border: 1px solid $light-grey2;
+            color: $light-grey2;    
         }
         &.btn-positive {
             border: 1px solid $active-blue;
             background-color: $active-blue;
-            color: #fff;
+            color: $white;
             &:hover {
                 background-color: $active-blue-hover;
             }
@@ -75,9 +79,6 @@
     margin-top: 40px;
 }
 
-
-
-
 .btn-upload {
     width: 60px;
     height: 60px;
@@ -87,5 +88,32 @@
     bottom: 45px;
     background-color: #fff;
     box-shadow: $shadow-1;
-  }
-  
+}
+.dropdown-container {
+    .selected-item {
+        display: inline-block;
+        border-bottom: 1px solid $light-grey3;
+        min-width: 180px;
+        padding: 8px 10px;
+        cursor: pointer;
+        .icn-down {
+            position: relative;
+            top: 5px;
+            float: right;
+        }
+    }
+    .dropdown-list {
+        position: absolute;
+        z-index: 1000;
+        box-shadow: $shadow-1;
+        .dropdown-list-item {
+            min-width: 180px;
+            padding: 12px 10px;
+            background-color: $white;
+            cursor: pointer;
+            &:hover {
+                background-color: $light-grey4;
+            }
+        }
+    }
+}

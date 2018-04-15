@@ -20,10 +20,10 @@
           </div>
         </div>
         <div class="user-box" @click="toRouter('mypage')">
-          <span><b>mopsy.D</b> 님</span>
+          <span><b>{{ nickname }}</b> 님</span>
           <div class="user-icon-box"></div>
         </div>
-        <button class="gnb-more" @click="logout">
+        <button class="gnb-more" @click="dispatchLogout">
           <img src="../../assets/gnb-more.svg" alt="">
         </button>
       </div>
@@ -46,22 +46,21 @@ export default {
       notiCount: 12,
     }
   },
-  created() {
-  },
-  mounted() {
-
+  computed: {
+    nickname() {
+      return this.$store.getters.nickname
+    }
   },
   methods: {
+    dispatchLogout() {
+      this.$store.dispatch('logout')
+    },
     toggleLoginModal() {
       this.$bus.$emit('toggleLoginModal', true)
     },
     login() {
       this.$bus.$emit('login')
     },
-
-    toRouter( routeName ) {
-      this.$router.push( { name : routeName })
-    }
   },
 }
 </script>

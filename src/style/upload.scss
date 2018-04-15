@@ -1,0 +1,86 @@
+.upload-container {
+    .close-wrapper {
+        padding: 15px 12px;
+    }
+    .wrapper-title {
+        .title-input {
+            border: none;
+            width: 100%;
+            max-width: 340px;
+            background-color: transparent;
+            font-size: 52px;
+            font-weight: 600;
+            margin: 20px 0px ;
+            padding: 0.5em 12px;
+            padding-bottom: 0.2em;
+            line-height: 64px;
+            resize: none;
+            word-break: keep-all;
+            transition: all 0.3s;
+            overflow: visible;
+            box-sizing: content-box;
+            &:focus {
+                outline: none;
+            }
+            &:hover {
+                &::placeholder {
+                    color: #aaa;    
+                }
+            }
+            &::placeholder {
+                font-weight: 300;
+                color: #ddd;
+                transition: all 0.3s;
+            }
+        }
+    }
+    .wrapper-select-channel {
+        padding: 20px 13px;
+        .select-channel {
+            background-color: transparent;
+            -webkit-appearance: none;
+            border: none;
+            font-size: 14px;
+        }
+    }
+    .ql-container {
+        border: none !important;
+        font-size: 15px !important;
+    }
+    .ql-editor {
+        min-height: 260px;
+        &::placeholder {
+            color: #ddd !important;
+            transition: all 0.3s;
+        }
+    }
+    .custom-toolbar {
+        border: none !important;
+        position: fixed;
+        width: 40px;
+        top: 240px;
+        left: calc((100vw - 768px) / 2 + 768px );
+        button {
+            margin: 6px 0px;
+            padding: 6px !important;
+            width: 36px !important;
+            height: 36px !important;
+            box-shadow: 1px 2px 8px 0px rgba(0,0,0,0.08);
+            border-radius: 100%;
+        }
+        .ql-align {
+            margin: 6px 0px;
+            padding: 6px 4px;
+            width: 36px !important;
+            height: 36px !important;
+            box-shadow: 1px 2px 8px 0px rgba(0,0,0,0.08);
+            border-radius: 100%;
+            &:focus {
+                outline: none;
+            }
+        }
+        .ql-size {
+            margin-bottom: 10px;
+        }
+    }
+}

@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <Gnb/>
-    <transition name="fadeoutin" appear>
       <router-view></router-view>
-    </transition>
     <transition name="opacity" appear>
     <LoginModal v-if="loginModal"/>
     </transition>
@@ -22,10 +20,11 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch('getChannels')
+    this.$store.dispatch('getUserInfo')
     this.$bus.$on('toggleLoginModal', this.toggleLoginModal)
   },
   methods: {
-
     toggleLoginModal(a) {
       this.loginModal = a;
     },

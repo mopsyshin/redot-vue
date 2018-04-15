@@ -15,53 +15,49 @@
       </div>
     </div>
     </transition>
-    <div class="container-fullsize">
-      <div class="top-channel-list">
-        <div class="channel-list-item" v-for="channel in channels" :key="channel.channel_name">
-          {{ channel.channel_name }}
+    <div class="container-fullsize" :class="{ fullsize: !rsbIsOpen}">
+      <div class="home-title-label">
+        Trending Channels
+        <span class="span-more" @click="toRouter('channel')">
+          More +
+        </span>
+      </div>
+      <div class="trending-channel-list">
+        <transition-group name="small-fade-in">
+        <div class="channel-list-item" v-for="channel in channels" :key="channel.channel_name" :style="{ backgroundColor : channel.channel_color}">
+          #{{ channel.channel_name }}
         </div>
+        </transition-group>
       </div>  
-      <ul class="reptileList">
-          <div v-masonry transition-duration="0.3s"
-              item-selector=".post-list-item">
-        <li class="post-list-item upload-card" @click="toRouter('upload')">
-          @게임<br/>
-          채널에<br/>
-          글 하나<br/>
-          써 볼래요?
-        </li>
-        <li v-for="post in posts" 
-            :key="post.id"
-            v-masonry-tile 
-            class="post-list-item"
-            column-width="#post-list-item"
-            @click="toPost(post.id)"
-            >
-          <div class="container-post-item">
-            <p class="channel">{{ post.channel }}</p>
-            <h3 class="title">
-              {{ post.title }}
-              <span class="comment-count">{{ post.comment_count }}</span>
-            </h3>
-            <div class="image" v-if="image">
-              <img :src="post.cover_image" alt="">
-            </div>
-            <p class="author">by <b>{{ post.author }}</b></p>
-            <div class="footer">
-              <div class="date">{{ post.date }}</div>
-              <div></div>
-            </div>
+      <div class="home-title-label">
+        Trending Posts
+      </div>
+      <div v-masonry 
+           transition-duration="0s"
+           item-selector=".post-list-item">
+          <div v-masonry-tile 
+               class="post-list-item upload-card" 
+               @click="uploadCardFunc">
+            @{{ recoCh }}<br/>
+            채널에<br/>
+            글 하나<br/>
+            써 볼래요?
           </div>
-        </li>
-        </div>
-      </ul>
+          <PostCard v-for="post in posts" 
+                    :key="post.id"
+                    v-masonry-tile 
+                    class="post-list-item"
+                    :post="post" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { db } from '../../firebase';
+import moment from 'moment';
 import _ from 'lodash';
+import PostCard from '../GlobalModules/PostCard';
 
 var next
 
@@ -70,55 +66,34 @@ export default {
     data() {
       return {
         posts: [],
-        channels: [],
         leaveContainer: false,
         next: {},
-        loginState: true,
-        image: false,
       }
     },
-    watch: {
+    computed: {
+      channels() {
+        return this.$store.state.channels
+      },
+      recoCh() {
+        return this.$store.state.recoCh
+      }
     },
     created() {
       this.getPosts();
-      this.getChannels();
       document.addEventListener('scroll', this.onScroll );
-      window.addEventListener('resize', this.$redrawVueMasonry() );
-    },
-    mounted() {
-      this.$bus.$on('loginState', this.getLoginState)
     },
     beforeDestroy() {
       document.removeEventListener('scroll', this.onScroll, false);
     },
     methods: {
-      getLoginState( state ) {
-        this.loginState = state
+      uploadCardFunc() {
+        if (this.loginState == true) {
+          this.toRouter('upload')
+        } else {
+          this.toggleLoginModal()
+        }
       },
-      getPosts() {
-        var first = db.collection('posts').orderBy("date", "desc").limit(20)
-        first.get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.posts.push(doc.data());
-          });
-        });
-          return first.get().then(querySnapshot => {
-          var lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
-          this.next = db.collection("posts")
-                  .orderBy("date", "desc")
-                  .startAfter(lastVisible)
-                  .limit(20);
-        });
-      },
-      getChannels() {
-        db.collection('channel').orderBy("channel_created_date").limit(8)
-        .get().then( querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.channels.push(doc.data());
-          })
-        })
-      },
-      loadmore: function() {
+      loadmore() {
         this.next.get().then(querySnapshot => {
           querySnapshot.forEach(doc => {
             this.posts.push(doc.data())
@@ -136,13 +111,6 @@ export default {
         })
       },
 
-      toPost(postId) {
-        this.leaveContainer = true
-        // Prevent masonry layout breaking
-        this.$nextTick(() => {
-          this.$router.push({ name: 'post', params: { id: postId }})
-        })
-      },
       // 한번 스크롤을 감지한 이후엔 300ms 이후 스크롤을 감지합니다
       onScroll: _.debounce( function() {
         
@@ -168,12 +136,12 @@ export default {
           this.loadmore();
         }
       }, 100),
-      toRouter( routeName ) {
-        this.$router.push({name:routeName})
-      },
       toggleLoginModal() {
          this.$bus.$emit('toggleLoginModal', true)
       },
+    },
+    components: {
+      PostCard: PostCard,
     }
   }
 </script>

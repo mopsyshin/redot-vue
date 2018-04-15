@@ -4,6 +4,7 @@ import MainContainer from '../components/MainContainer';
 import Home from '../components/Home/Home';
 import HomeRsb from '../components/Home/HomeRsb';
 import Channel from '../components/Channel/Channel';
+import ChannelRsb from '../components/Channel/ChannelRsb';
 import AddChannel from '../components/Channel/AddChannel';
 import Mypage from '../components/Mypage/Mypage';
 import Post from '../components/Post/Post';
@@ -38,7 +39,7 @@ export default new Router({
           name: 'channel',
           components: {
             mv: Channel,
-            rsb: HomeRsb
+            rsb: ChannelRsb,
           },
         },
         {
@@ -105,4 +106,12 @@ export default new Router({
       component: AddChannel,
     },
   ],
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+    
+  }
 });
