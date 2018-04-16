@@ -9,12 +9,13 @@ const store = new Vuex.Store({
         
     },
     state: {
-        loginState: null,
+        loginState: false,
         user: {},
         channels: [],
         recoCh: '',
         rsbState: true,
         channelReady: false,
+        bannerState: false,
     },
     getters: {
         email: state => {
@@ -27,6 +28,7 @@ const store = new Vuex.Store({
     mutations: {
         setLoginState(state, payload) {
             state.loginState = payload.loginState
+            state.bannerState = payload.bannerState
         },
         setUser(state, payload) {
             state.user = payload.user
@@ -65,9 +67,14 @@ const store = new Vuex.Store({
                     store.commit({
                         type: 'setLoginState',
                         loginState: true,
+                        bannerState: false,
                     })
                 } else {
-                    console.log('error')
+                    store.commit({
+                        type: 'setLoginState',
+                        loginState: false,
+                        bannerState: true,
+                    })
                 }
             })
         },

@@ -1,7 +1,7 @@
 <template>
   <div class="home" :class="{'leave-container':leaveContainer}">
     <transition name="banneraction" appear>
-    <div class="home-banner" v-if="!loginState">
+    <div class="home-banner" v-if="bannerState">
       <div class="service-message">
         커뮤니티 생태계에 새로운 점을 찍다
       </div>
@@ -86,6 +86,9 @@ export default {
       }
     },
     computed: {
+      bannerState() {
+        return this.$store.state.bannerState
+      },
       channels() {
         return this.$store.state.channels
       },

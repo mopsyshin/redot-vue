@@ -45,7 +45,6 @@ Vue.mixin({
         });
       }).then(() => {
         this.postReady = true
-        console.log('off')
       });
         return first.get().then(querySnapshot => {
         var lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];

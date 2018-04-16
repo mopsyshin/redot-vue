@@ -36,4 +36,24 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./main.scss"></style>
+<style lang="scss">
+  @import 'main.scss';
+  $shadow-3: 2px 4px 22px rgba(0, 0, 0, 0.05);
+$shadow-2: 0px 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-1: 0px 2px 8px rgba(0, 0, 0, 0.04);
+$white: #fff;
+$light-grey1: #999;
+$light-grey2: #bbb;
+$light-grey3: #ddd;
+$light-grey4: #f8f8f8;
+$dark-grey1: #666;
+$dark-grey2: #333;
+$point-red: #FF5D6E;
+$active-blue: #2e89ff;
+$active-blue-hover: #246df3;
+
+@mixin background-hover {
+    background-color: #f4f4f4;
+    transition: 0.2s all;
+  }
+</style>
