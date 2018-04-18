@@ -16,6 +16,7 @@ const store = new Vuex.Store({
         rsbState: true,
         channelReady: false,
         bannerState: false,
+        channelCount: 0,
     },
     getters: {
         email: state => {
@@ -44,6 +45,9 @@ const store = new Vuex.Store({
         },
         channelReady(state, payload) {
             state.channelReady = payload.value
+        },
+        setChannelCount(state, payload) {
+            state.channelCount = payload.channelCount
         }
     },
     actions: {
@@ -85,7 +89,7 @@ const store = new Vuex.Store({
             })
             var channels = []
             var recoCh = []
-            db.collection('channel').orderBy("channel_created_date").limit(8)
+            db.collection('channel').orderBy("channel_created_date").limit(10)
             .get().then( querySnapshot => {
               querySnapshot.forEach(doc => {
                 channels.push(doc.data())

@@ -5,7 +5,7 @@
             Number of Channels
             </div>
             <div class="section-display-number">
-            {{ channels.length }}
+            {{ channelCount }}
             </div>
         </div>
         <div class="rsb-section">
@@ -22,8 +22,8 @@
 <script>
 export default {
     computed: {
-        channels() {
-            return this.$store.state.channels
+        channelCount() {
+            return this.$store.state.channelCount
         }
     },
 }

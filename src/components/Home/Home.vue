@@ -1,4 +1,5 @@
 <template>
+<keep-alive>
   <div class="home" :class="{'leave-container':leaveContainer}">
     <transition name="banneraction" appear>
     <div class="home-banner" v-if="bannerState">
@@ -66,6 +67,7 @@
       </div>
     </div>
   </div>
+</keep-alive>
 </template>
 
 <script>
@@ -107,12 +109,23 @@ export default {
       document.removeEventListener('scroll', this.onScroll, false);
     },
     methods: {
-      uploadCardFunc() {
-        if (this.loginState == true) {
-          this.toRouter('upload')
-        } else {
-          this.toggleLoginModal()
-        }
+      getPosts() {
+        this.postReady = false
+        var first = db.collection('posts').orderBy("date", "desc").limit(20)
+        first.get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.posts.push(doc.data());
+          });
+        }).then(() => {
+          this.postReady = true
+        });
+          return first.get().then(querySnapshot => {
+          var lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
+          this.next = db.collection("posts")
+                  .orderBy("date", "desc")
+                  .startAfter(lastVisible)
+                  .limit(20);
+        });
       },
       loadmore() {
         this.next.get().then(querySnapshot => {
@@ -157,9 +170,7 @@ export default {
           this.loadmore();
         }
       }, 100),
-      toggleLoginModal() {
-         this.$bus.$emit('toggleLoginModal', true)
-      },
+
       toChannelPage(channelname) {   
             this.$router.push({ name: 'channelpage', params: { channelname : channelname }})
       },

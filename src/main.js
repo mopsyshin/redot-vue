@@ -36,23 +36,15 @@ Vue.mixin({
     back() {
       this.$router.go(-1)
     },
-    getPosts() {
-      this.postReady = false
-      var first = db.collection('posts').orderBy("date", "desc").limit(20)
-      first.get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.posts.push(doc.data());
-        });
-      }).then(() => {
-        this.postReady = true
-      });
-        return first.get().then(querySnapshot => {
-        var lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
-        this.next = db.collection("posts")
-                .orderBy("date", "desc")
-                .startAfter(lastVisible)
-                .limit(20);
-      });
+    uploadCardFunc() {
+      if (this.loginState == true) {
+        this.toRouter('upload')
+      } else {
+        this.toggleLoginModal()
+      }
+    },
+    toggleLoginModal() {
+      this.$bus.$emit('toggleLoginModal', true)
     },
   }
 })
