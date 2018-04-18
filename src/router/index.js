@@ -4,6 +4,8 @@ import MainContainer from '../components/MainContainer';
 import Home from '../components/Home/Home';
 import HomeRsb from '../components/Home/HomeRsb';
 import Channel from '../components/Channel/Channel';
+import ChannelPage from '../components/Channel/ChannelPage';
+import ChannelPageRsb from '../components/Channel/ChannelPageRsb';
 import ChannelRsb from '../components/Channel/ChannelRsb';
 import AddChannel from '../components/Channel/AddChannel';
 import Mypage from '../components/Mypage/Mypage';
@@ -40,6 +42,15 @@ export default new Router({
           components: {
             mv: Channel,
             rsb: ChannelRsb,
+          },
+        },
+        {
+          path: '/channel/:channelname',
+          name: 'channelpage',
+          props: true,
+          components: {
+            mv: ChannelPage,
+            rsb: ChannelPageRsb,
           },
         },
         {

@@ -23,7 +23,7 @@
         </span>
       </div>
       <div class="trending-channel-list">
-        <div class="channel-list-item" v-if="channelReady" v-for="channel in channels" :key="channel.channel_name" :style="{ backgroundColor : channel.channel_color}">
+        <div class="channel-list-item" @click="toChannelPage(channel.channel_name)" v-if="channelReady" v-for="channel in channels" :key="channel.channel_name" :style="{ backgroundColor : channel.channel_color}">
           #{{ channel.channel_name }}
         </div>
         <div class="channel-list-item skeleton" v-if="!channelReady" v-for="(item, index) in 10" :key="index">
@@ -159,6 +159,9 @@ export default {
       }, 100),
       toggleLoginModal() {
          this.$bus.$emit('toggleLoginModal', true)
+      },
+      toChannelPage(channelname) {   
+            this.$router.push({ name: 'channelpage', params: { channelname : channelname }})
       },
     },
     components: {

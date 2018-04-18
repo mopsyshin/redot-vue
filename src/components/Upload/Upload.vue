@@ -40,6 +40,7 @@
         
         <!-- But you can also add your own -->
       </div>
+      <button @click="getBody">getcontents</button>
       <div class="bottom-right-button-group">
           <button class="btn-positive" @click="addPost" :disabled="isEmpty">작성완료</button>
       </div>
@@ -52,14 +53,14 @@ import { db, auth } from '../../firebase';
 import moment from 'moment';
 import Vue from 'vue'
 import Dropdown from '../GlobalModules/Dropdown'
-import VueQuillEditor from 'vue-quill-editor'
+import quill from 'vue-quill-editor'
 
 // require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
-Vue.use(VueQuillEditor, {
+Vue.use(quill, {
 
 })
 
@@ -70,6 +71,7 @@ export default {
       title: '',
       body: '',
       selectedChannel: '',
+      postContents: '',
       selectedChannelColor: '',
       editorOption: {
             // debug: 'info',
@@ -105,6 +107,11 @@ export default {
     }
   },
   methods: {
+    getBody(){
+
+      console.log(body)
+      this.postContents = body
+    },
     channelSelected(chName) {
       this.selectedChannel = chName
       this.channels.forEach( item => {
