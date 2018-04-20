@@ -1,5 +1,10 @@
 <template>
   <div class="container-fullsize channel-page-container">
+    <transition name="banneraction" appear>
+        <div class="channel-banner">
+
+        </div>
+    </transition>
       {{ channel_name }}
       <div v-masonry 
            transition-duration="0s"
