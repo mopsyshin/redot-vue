@@ -1,18 +1,32 @@
 <template>
-  <div class="container-fullsize channel-page-container">
-    <transition name="banneraction" appear>
-        <div class="channel-banner">
-
+  <div class="channel-page-container">
+        <div class="channel-banner-section">
+            <div class="button-box">
+                <button class="btn-channel-change-image"><img src="../../assets/my-camera.svg" alt=""></button>
+                <button class="btn-channel-subscribe">Subscribe +</button>
+            </div>
         </div>
-    </transition>
-      {{ channel_name }}
-      <div v-masonry 
+      <div class="container-fullsize" :class="{ fullsize: !rsbIsOpen}">
+          <div class="channel-initial" :style="{ borderColor : chColor}">
+              <div :style="{ color : chColor }">
+                  {{ chName.slice(0,1) }}
+              </div>
+          </div>
+          <div class="ch-info">
+              <div class="ch-name" :style="{ color : chColor }">
+                  #{{ chName }}
+              </div>
+              <div class="ch-desc">
+                {{ chDesc }}
+              </div>
+          </div>
+          <div v-masonry 
            transition-duration="0s"
            item-selector=".post-list-item">
           <div v-masonry-tile 
                class="post-list-item upload-card" 
                @click="uploadCardFunc">
-            @{{ channel_name }}<br/>
+            @{{ chName }}<br/>
             채널에<br/>
             글 하나<br/>
             써 볼래요?
@@ -37,6 +51,7 @@
           </div>
           </transition-group>
       </div>
+      </div>
   </div>
 </template>
 
@@ -47,8 +62,13 @@ import PostCard from '../GlobalModules/PostCard'
 export default {
     data() {
         return {
-            channel_name : '',
             posts: [],
+            channelInfo: [],
+            chName : '',
+            chColor: '#ccc',
+            chDesc: '',
+            chAdmin: '',
+            chDate: '',
         }
     },
     created() {
@@ -57,8 +77,18 @@ export default {
     methods: {
         getChannelPost() {
             this.postReady = false
-            this.channel_name = this.$route.params.channelname
-            var docRef = db.collection('posts').where('channel', '==' ,this.channel_name).orderBy("date", "desc").limit(20).get().then(querySnapshot => {
+            this.chName = this.$route.params.channelname
+            db.collection('channel').where('channel_name', '==' , this.chName).get().then(querySnapshot => {
+                    querySnapshot.forEach(doc => {
+                        this.channelInfo.push(doc.data())
+                });
+            }).then(()=> {
+                this.chColor = this.channelInfo[0].channel_color
+                this.chDesc = this.channelInfo[0].channel_desc
+                this.chAdmin = this.channelInfo[0].channel_admin
+                this.chDate = this.channelInfo[0].channel_created_date
+            })
+            db.collection('posts').where('channel', '==' ,this.chName).orderBy("date", "desc").limit(20).get().then(querySnapshot => {
                     querySnapshot.forEach(doc => {
                         this.posts.push(doc.data())
                 });

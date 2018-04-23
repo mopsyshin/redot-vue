@@ -5,7 +5,10 @@
         <img src="@/assets/icn-close.svg" alt="" @click="back">
       </div>
       <div class="wrapper-select-channel">
-        <Dropdown :items="channel_names" @itemSelected="channelSelected"/>
+        <Dropdown :items="channel_names" 
+                  :placeholder="'채널을 선택해주세요'" 
+                  :defaultItem="'Vue'"
+                  @itemSelected="channelSelected"/>
       </div>
       <div class="wrapper-title">
         <textarea-autosize 
@@ -16,10 +19,10 @@
                >
         </textarea-autosize>
       </div>
-      <quill-editor v-model="body"
-                    ref="myQuillEditor"
+      <quill-editor ref="myQuillEditor"
                     :options="editorOption"
-                    class="custom-editor">
+                    class="custom-editor"
+                    @change="onEditorChange($event)">
       </quill-editor>
       <div id="toolbar" class="custom-toolbar">
         <!-- Add buttons as you would before -->
@@ -40,9 +43,11 @@
         
         <!-- But you can also add your own -->
       </div>
-      <button @click="getBody">getcontents</button>
       <div class="bottom-right-button-group">
           <button class="btn-positive" @click="addPost" :disabled="isEmpty">작성완료</button>
+      </div>
+      <div>
+        <input type="file"/>
       </div>
     </div>
   </div>
@@ -68,15 +73,16 @@ export default {
   name: 'Upload',
   data() {
     return {
+      imageUrl: '',
       title: '',
-      body: '',
-      selectedChannel: '',
+      content: '',
+      selectedChannel: 'Vue',
       postContents: '',
       selectedChannelColor: '',
       editorOption: {
             // debug: 'info',
             modules: {
-              toolbar: '#toolbar'
+              toolbar: '#toolbar',
             },
             placeholder: '본문을 입력해주세요',
             readOnly: true,
@@ -99,7 +105,7 @@ export default {
       return newArr
     },
     isEmpty() {
-      if ( this.title | this.body == '') {
+      if ( this.title | this.content == '') {
         return true
       } else {
         return false
@@ -107,10 +113,9 @@ export default {
     }
   },
   methods: {
-    getBody(){
-
-      console.log(body)
-      this.postContents = body
+    onEditorChange({ editor, html, text }) {
+        // console.log('editor change!', editor, html, text)
+        this.content = html
     },
     channelSelected(chName) {
       this.selectedChannel = chName
@@ -127,12 +132,14 @@ export default {
           color: this.selectedChannelColor,
           channel: this.selectedChannel,
           title: this.title,
-          body: this.body,
+          body: this.content,
           author: this.author,
           date: moment().format('YYYY-MM-DD, HH:mm:ss'),
           }).then(() => { 
              alert('success')
-        })
+        }).catch( err => {
+          console.log(err)
+        }) 
     },
   },
   components: {

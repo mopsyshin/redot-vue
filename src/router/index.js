@@ -9,6 +9,7 @@ import ChannelPageRsb from '../components/Channel/ChannelPageRsb';
 import ChannelRsb from '../components/Channel/ChannelRsb';
 import AddChannel from '../components/Channel/AddChannel';
 import Mypage from '../components/Mypage/Mypage';
+import MypageRsb from '../components/Mypage/MypageRsb';
 import Post from '../components/Post/Post';
 import Setting from '../components/Setting/Setting';
 import Store from '../components/Store/Store';
@@ -54,12 +55,12 @@ export default new Router({
           },
         },
         {
-          path: '/mypage/:author',
+          path: '/mypage/:nickname',
           name: 'mypage',
           props: true,
           components: {
             mv: Mypage,
-            rsb: HomeRsb
+            rsb: MypageRsb
           },
         },
         {

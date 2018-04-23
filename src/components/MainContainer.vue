@@ -3,7 +3,9 @@
     <div class="view-container">
     <transition name="main-view-transition" appear>
       <div class="main-view" :class="{ fullsize : !rsbIsOpen }">
+        <!-- <keep-alive> -->
         <router-view name="mv"></router-view>
+        <!-- </keep-alive> -->
       </div>
     </transition>
       <button class="btn-toggle-rsb" @click="rsbToggle" >
@@ -11,7 +13,9 @@
       </button>
       <div class="rsb-view" :class="{ close : !rsbIsOpen }">
         <transition name="rsb-animation" mode="out-in" appear>
-        <router-view name="rsb"></router-view>
+          <!-- <keep-alive> -->
+           <router-view name="rsb"></router-view>
+          <!-- </keep-alive> -->
         </transition>
       </div>
     </div>

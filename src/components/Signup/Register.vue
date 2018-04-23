@@ -84,11 +84,10 @@ export default {
             user.updateProfile({
                 displayName: this.nickname
                 }).then(function() {
-                // Update successful.
+                this.addUserToFirestore()
                 }).catch(function(error) {
                 // An error happened.
                 });
-            this.addUserToFirestore()
         }).catch( error => {
             var errorCode = error.code;
             var errorMessage = error.message;

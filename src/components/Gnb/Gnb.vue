@@ -19,7 +19,7 @@
             {{ notiCount }}
           </div>
         </div>
-        <div class="user-box" @click="toRouter('mypage')">
+        <div class="user-box" @click="toMypage(nickname)">
           <span><b>{{ nickname }}</b> 님</span>
           <div class="user-icon-box"></div>
         </div>
@@ -60,6 +60,9 @@ export default {
     },
     login() {
       this.$bus.$emit('login')
+    },
+    toMypage(nickname) {
+      this.$router.push({ name: 'mypage', params: { nickname: nickname}})
     },
   },
 }

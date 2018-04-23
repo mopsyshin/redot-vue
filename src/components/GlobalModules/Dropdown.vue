@@ -9,7 +9,7 @@
         <div class="selected-item" 
              @click="toggleDropdown" 
              v-if="selectedItem == ''">
-             채널을 선택해주세요
+             {{ this.placeholder }}
              <img class="icn-down" src="@/assets/icn-down.svg" alt="">
         </div>
         <transition name="dropdown-animation" mode="out-in" appear>
@@ -27,12 +27,15 @@
 
 <script>
 export default {
-    props: ['items'],
+    props: ['items', 'placeholder', 'defaultItem'],
     data() {
         return {
             selectedItem: '',
             dropdownState: false,
         }
+    },
+    mounted() {
+        this.selectItem(this.defaultItem)
     },
     methods: {
         toggleDropdown() {
@@ -40,7 +43,7 @@ export default {
         },
         selectItem(item) {
             this.selectedItem = item
-            this.dropdownState = !this.dropdownState
+            this.dropdownState = false
             this.$emit('itemSelected', item)
         }
     }

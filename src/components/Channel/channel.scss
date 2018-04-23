@@ -62,3 +62,86 @@
         }
     }
 }
+
+.channel-page-container {
+    .channel-banner-section {
+        margin-top: 56px;
+        width: 100%;
+        height: 270px;
+        background-image: url('./assets/ch-cover.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        text-align: center;
+        .button-box {
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            button {
+                background-color: #fff;
+                &:hover {
+                    background-color: #ddd;
+                    transform: translateY(-2px);
+                }
+            }
+            .btn-channel-change-image {
+                width: 34px;
+                height: 34px;
+                border-radius: 34px;
+                margin: 0px 16px 16px 0px;
+                img {
+                    width: 20px;
+                }
+            }
+            .btn-channel-subscribe {
+                height: 35px;
+                padding: 0px 24px;
+                margin: 0px 16px 16px 0px;
+                border-radius: 40px;
+                font-size: 14px;
+                color: $dark-grey1;
+            }
+        }
+    }
+    .container-fullsize {
+        padding-top: 0px;
+        margin-top: 0px;
+    }
+    .channel-initial {
+        position: absolute;
+        width: 76px;
+        height: 76px;
+        border-radius: 76px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-46px);
+        border: 3px solid;
+        font-size: 42px;
+        font-weight: 900;
+        box-shadow: $shadow-2;
+        div {
+            position: relative;
+            top: 3px;
+        }
+    }
+    .ch-info {
+        margin-top: 8px;
+        margin-left: 96px;
+        .ch-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .ch-desc {
+            font-size: 14px;
+            color: $light-grey1;
+        }
+    }
+}

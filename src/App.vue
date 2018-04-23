@@ -1,9 +1,12 @@
 <template>
   <div id="app">
     <Gnb/>
+    <!-- <keep-alive> -->
       <router-view></router-view>
+    <!-- </keep-alive> -->
     <transition name="opacity" appear>
     <LoginModal v-if="loginModal"/>
+    <GlobalModal v-if="isShownGlobalModal"/>
     </transition>
   </div>
 </template>
@@ -11,12 +14,14 @@
 <script>
 import Gnb from './components/Gnb/Gnb'
 import LoginModal from './components/Signup/LoginModal'
+import GlobalModal from './components/GlobalModules/GlobalModal'
 
 export default {
   name: 'App',
   data() {
     return {
       loginModal: false,
+      isShownGlobalModal: false,
     }
   },
   created() {
@@ -32,28 +37,11 @@ export default {
   components: {
     Gnb: Gnb,
     LoginModal: LoginModal,
+    GlobalModal: GlobalModal,
   }
 };
 </script>
 
 <style lang="scss">
   @import 'main.scss';
-  $shadow-3: 2px 4px 22px rgba(0, 0, 0, 0.05);
-$shadow-2: 0px 2px 8px rgba(0, 0, 0, 0.08);
-$shadow-1: 0px 2px 8px rgba(0, 0, 0, 0.04);
-$white: #fff;
-$light-grey1: #999;
-$light-grey2: #bbb;
-$light-grey3: #ddd;
-$light-grey4: #f8f8f8;
-$dark-grey1: #666;
-$dark-grey2: #333;
-$point-red: #FF5D6E;
-$active-blue: #2e89ff;
-$active-blue-hover: #246df3;
-
-@mixin background-hover {
-    background-color: #f4f4f4;
-    transition: 0.2s all;
-  }
 </style>
