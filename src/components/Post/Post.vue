@@ -45,16 +45,16 @@ import moment from 'moment'
     methods: {
       getContents() {
         var post_id = this.$route.params.id;
-        var docRef = db.collection('posts').doc(post_id)
+        var docRef = db.collection('post').doc(post_id)
         docRef.get().then((doc) =>{
           this.contents.push(doc.data());
         }).then( () => {
-          this.channel = this.contents[0].channel
-          this.title = this.contents[0].title
-          this.body = this.contents[0].body
-          this.author = this.contents[0].author
-          this.date = this.contents[0].date
-          this.color = this.contents[0].color
+          this.author = this.contents[0].post_user_name
+          this.title = this.contents[0].post_title
+          this.body = this.contents[0].post_body
+          this.channel = this.contents[0].post_channel_name
+          this.color = this.contents[0].post_channel_color
+          this.date = this.contents[0].post_created_date
         })
       },
     }

@@ -94,8 +94,11 @@ import moment from 'moment';
                 channel_color: this.selectedColor,
                 channel_desc: this.channelDesc,
                 channel_created_date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+                channel_score: 0,
+                channel_post_count: 0,
                 }).then(() => { 
                     this.toRouter('home')
+                    this.$store.dispatch('getChannels')
             })
         },
     },

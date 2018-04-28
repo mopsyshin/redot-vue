@@ -1,8 +1,10 @@
 .upload-container {
+    padding-right: 120px;
     .close-wrapper {
         padding: 15px 12px;
     }
     .wrapper-title {
+        border-bottom: 1px solid #eee;
         .title-input {
             border: none;
             width: 100%;
@@ -28,7 +30,7 @@
                 }
             }
             &::placeholder {
-                font-weight: 300;
+                font-weight: 600;
                 color: #ddd;
                 transition: all 0.3s;
             }
@@ -49,6 +51,7 @@
     }
     .ql-editor {
         min-height: 260px;
+        line-height: 1.82;
         &::placeholder {
             color: #ddd !important;
             transition: all 0.3s;
@@ -61,13 +64,18 @@
                 border-radius: 12px;
             }
         }
+        a {
+            text-decoration: none;
+            font-weight: 700;
+            color: #27ceb9;
+        }
     }
     .custom-toolbar {
         border: none !important;
         position: fixed;
         width: 40px;
         top: 240px;
-        left: calc((100vw - 768px) / 2 + 768px );
+        left: calc((100vw - 768px) / 2 + 648px );
         button {
             margin: 6px 0px;
             padding: 6px !important;

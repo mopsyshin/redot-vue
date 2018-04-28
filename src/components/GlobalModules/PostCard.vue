@@ -1,15 +1,15 @@
 <template>
-    <div class="container-post-item" @click="toPost(post.id)">
-        <p class="channel" :style="{color : post.color}">{{ post.channel }}</p>
+    <div class="container-post-item" @click="toPost(post.post_id)">
+        <p class="channel" :style="{color : post.post_channel_color}">{{ post.post_channel_name }}</p>
         <h3 class="title">
-            {{ post.title }}
-            <span class="comment-count">{{ post.comment_count }}</span>
+            {{ post.post_title }}
+            <span class="comment-count">{{ post.post_comment_count }}</span>
         </h3>
         <div class="image">
-            <img :src="post.cover_image" alt="" v-show="!post.cover_image == ''">
+            <img :src="post.post_thumb_image" alt="" v-show="!post.post_thumb_image == ''">
         </div>
         <p class="author">by
-            <b>{{ post.author }}</b>
+            <b>{{ post.post_user_name }}</b>
         </p>
         <div class="footer">
             <div class="date">{{ postDate }}</div>
@@ -25,7 +25,7 @@ export default {
     props: ['post'],
     computed: {
         postDate() {
-            var date = moment(this.post.date).calendar()
+            var date = moment(this.post.post_created_date).calendar()
             return date
         }
     },

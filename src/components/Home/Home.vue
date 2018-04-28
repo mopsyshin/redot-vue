@@ -47,7 +47,7 @@
           </div>
           <transition-group name="small-fade-in" mode="out-in" appear>
           <PostCard v-for="post in posts" 
-                    :key="post.id"
+                    :key="post.post_id"
                     v-masonry-tile 
                     class="post-list-item"
                     :post="post" 
@@ -111,7 +111,7 @@ export default {
     methods: {
       getPosts() {
         this.postReady = false
-        var first = db.collection('posts').orderBy("date", "desc").limit(20)
+        var first = db.collection('post_list_thumb').orderBy("post_created_date", "desc").limit(20)
         first.get().then(querySnapshot => {
           querySnapshot.forEach(doc => {
             this.posts.push(doc.data());
@@ -121,8 +121,8 @@ export default {
         });
           return first.get().then(querySnapshot => {
           var lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
-          this.next = db.collection("posts")
-                  .orderBy("date", "desc")
+          this.next = db.collection("post_list_thumb")
+                  .orderBy("post_created_date", "desc")
                   .startAfter(lastVisible)
                   .limit(20);
         });
@@ -135,13 +135,13 @@ export default {
         })
         return this.next.get().then(querySnapshot => {
           var lastVisible = querySnapshot.docs[querySnapshot.docs.length-1];
-          this.next = db.collection("posts")
-                  .orderBy("date", "desc")
+          this.next = db.collection("post_list_thumb")
+                  .orderBy("post_created_date", "desc")
                   .startAfter(lastVisible)
                   .limit(20);
         }).catch(err => {
             var message = "마지막 포스트입니다"
-            this.$bus.$emit('finalScroll', message)
+            console.log(message)
         })
       },
 

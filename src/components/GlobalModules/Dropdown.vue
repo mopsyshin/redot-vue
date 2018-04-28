@@ -27,15 +27,12 @@
 
 <script>
 export default {
-    props: ['items', 'placeholder', 'defaultItem'],
+    props: ['items', 'placeholder'],
     data() {
         return {
             selectedItem: '',
             dropdownState: false,
         }
-    },
-    mounted() {
-        this.selectItem(this.defaultItem)
     },
     methods: {
         toggleDropdown() {

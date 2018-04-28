@@ -11,6 +11,7 @@ const store = new Vuex.Store({
     state: {
         loginState: false,
         user: {},
+        userInfo: {},
         channels: [],
         recoCh: '',
         rsbState: true,
@@ -33,6 +34,7 @@ const store = new Vuex.Store({
         },
         setUser(state, payload) {
             state.user = payload.user
+            state.userInfo = payload.userInfo[0]
         },
         setChannels(state, payload) {
             state.channels = payload.channels
@@ -64,15 +66,24 @@ const store = new Vuex.Store({
         getUserInfo() {
             auth.onAuthStateChanged( user => {
                 if (user) {
-                    store.commit({
-                        type: 'setUser',
-                        user: user,
-                    })
-                    store.commit({
-                        type: 'setLoginState',
-                        loginState: true,
-                        bannerState: false,
-                    })
+                    var userInfo = []                    
+                    db.collection('user').where('user_name', '==', user.displayName).get().then(querySnapshot => {
+                        querySnapshot.forEach(doc => {
+                            userInfo.push(doc.data())
+                        })
+                    }).then(() => {
+                        store.commit({
+                            type: 'setUser',
+                            user: user,
+                            userInfo: userInfo,
+                        })
+                        store.commit({
+                            type: 'setLoginState',
+                            loginState: true,
+                            bannerState: false,
+                        })
+                    }) 
+
                 } else {
                     store.commit({
                         type: 'setLoginState',

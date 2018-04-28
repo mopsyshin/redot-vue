@@ -23,7 +23,7 @@
            item-selector=".post-list-item">
           <transition-group name="small-fade-in" mode="out-in" appear>
           <PostCard v-for="post in posts" 
-                    :key="post.id"
+                    :key="post.post_id"
                     v-masonry-tile 
                     class="post-list-item"
                     :post="post" 
@@ -68,7 +68,7 @@ export default {
         getUserPost() {
             this.postReady = false
             this.userName = this.$route.params.nickname
-            db.collection('posts').where('author', '==' , this.userName).get().then(querySnapshot => {
+            db.collection('post_list_thumb').where('post_user_name', '==' , this.userName).orderBy("post_created_date", "desc").get().then(querySnapshot => {
                     querySnapshot.forEach(doc => {
                         this.posts.push(doc.data())
                 });

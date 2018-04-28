@@ -59,6 +59,7 @@
 import { auth } from '../../firebase';
 import { db } from '../../firebase';
 import CheckBox from '../GlobalModules/CheckBox'
+import moment from 'moment'
 
 export default {
   data() {
@@ -83,10 +84,10 @@ export default {
         auth.createUserWithEmailAndPassword(email, password).then( user => {
             user.updateProfile({
                 displayName: this.nickname
-                }).then(function() {
+                }).then( () => {
                 this.addUserToFirestore()
-                }).catch(function(error) {
-                // An error happened.
+                }).catch(error => {
+                    console.log(error)
                 });
         }).catch( error => {
             var errorCode = error.code;
@@ -96,13 +97,19 @@ export default {
         })
     },
     addUserToFirestore() {
-        const ref = db.collection('users').doc()
+        const ref = db.collection('user').doc()
         ref.set({
-            id: ref.id,
-            email: this.email,
-            nickname: this.nickname,
-            date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+            user_name: this.nickname,
+            user_email: this.email,
+            user_created_date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+            user_dot: 0,
+            user_uid: ref.id,
+            user_follower: [],
+            user_following: [],
+            user_bookmark: [],
           }).then(() => {
+                this.$store.dispatch('logout')
+                this.toggleLoginModal()
                 this.toRouter('home')
             }).catch( error => {
                 alert(error)

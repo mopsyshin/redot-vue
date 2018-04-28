@@ -7,7 +7,6 @@
       <div class="wrapper-select-channel">
         <Dropdown :items="channel_names" 
                   :placeholder="'채널을 선택해주세요'" 
-                  :defaultItem="'Vue'"
                   @itemSelected="channelSelected"/>
       </div>
       <div class="wrapper-title">
@@ -15,10 +14,11 @@
               type="text"
                class="title-input"
                v-model="title"
-               placeholder="제목을 입력해주세요"
+               placeholder="제목을 입력하세요"
                >
         </textarea-autosize>
       </div>
+      <div class="bar"></div>
       <div id="quill-editor"></div>
       <div id="toolbar" class="custom-toolbar">
         <select class="ql-size">
@@ -35,9 +35,6 @@
         <button class="ql-image"></button>
         <button class="ql-link"></button>
       </div>
-      <button @click="resizeImg">
-        resize
-      </button>
       <div class="bottom-right-button-group">
           <button class="btn-positive" @click="addPost" :disabled="isEmpty">작성완료</button>
       </div>
@@ -62,7 +59,7 @@ export default {
     return {
       imageUrl: '',
       title: '',
-      selectedChannel: 'Vue',
+      selectedChannel: '',
       postContents: '',
       selectedChannelColor: '',
       content: {
@@ -89,7 +86,7 @@ export default {
       return newArr
     },
     isEmpty() {
-      if ( this.title == '') {
+      if ( this.title == '' || this.selectedChannel == '') {
         return true
       } else {
         return false
@@ -104,18 +101,19 @@ export default {
           container: '#toolbar',
         },
       },
-      placeholder: 'Free Write...',
+      placeholder: '',
       theme: 'snow'
     });
   },
   methods: {
-    convertToHtml() {
-      var delta = Editor.getContents();
+    convertToHtml(delta) {
       for ( var i = 0; i < delta.ops.length; i++) {
         var str = delta.ops[i].insert
         if ( str.image ){
-          delta.ops[i].insert.image = resizebase64(str.image, 500, 500)
-          console.log(delta.ops[i].insert.image)
+          var beforeImg = str.image
+          delta.ops[i].insert.image = resizebase64(str.image, 700, 700)
+          var afterImg = delta.ops[i].insert.image
+          console.log( beforeImg == afterImg )
         }
       }
       var deltaOps = delta.ops
@@ -133,18 +131,46 @@ export default {
       })
     },
     addPost() {
-      var html = this.convertToHtml()
-      const ref = db.collection('posts').doc()
+      var delta = Editor.getContents();
+      var html = this.convertToHtml(delta)
+
+      const ref = db.collection('post').doc()
         ref.set({
-          id: ref.id,
-          color: this.selectedChannelColor,
-          channel: this.selectedChannel,
-          title: this.title,
-          body: html,
-          author: this.author,
-          date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+          post_id: ref.id,
+          post_channel_color: this.selectedChannelColor,
+          post_channel_name: this.selectedChannel,
+          post_title: this.title,
+          post_body: html,
+          post_user_name: this.author,
+          post_created_date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+          post_like: [],
+          post_dislike: [],
+          post_deleted: false,
           }).then(() => { 
-             this.toRouter('home')
+            var thumbImg = ''
+            for ( var i = 0; i < delta.ops.length; i++) {
+              var str = delta.ops[i].insert
+              if ( str.image ){
+                thumbImg = resizebase64(str.image, 300, 300)
+                break
+              }
+            }
+            db.collection('post_list_thumb').doc().set({
+              post_id: ref.id,
+              post_channel_color: this.selectedChannelColor,
+              post_channel_name: this.selectedChannel,
+              post_title: this.title,
+              post_user_name: this.author,
+              post_created_date: moment().format('YYYY-MM-DD, HH:mm:ss'),
+              post_like_count: 0,
+              post_dislike_count: 0,
+              post_deleted: false,
+              post_thumb_image: thumbImg,
+            }).then(() => {
+              this.toRouter('home')
+            }).catch(err => {
+              console.log(err)
+            })
         }).catch( err => {
           console.log(err)
         }) 

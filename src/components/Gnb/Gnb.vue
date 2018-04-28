@@ -54,6 +54,7 @@ export default {
   methods: {
     dispatchLogout() {
       this.$store.dispatch('logout')
+      this.toRouter('home')
     },
     toggleLoginModal() {
       this.$bus.$emit('toggleLoginModal', true)

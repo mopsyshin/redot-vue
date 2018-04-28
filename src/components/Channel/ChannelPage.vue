@@ -33,7 +33,7 @@
           </div>
           <transition-group name="small-fade-in" mode="out-in" appear>
           <PostCard v-for="post in posts" 
-                    :key="post.id"
+                    :key="post.post_id"
                     v-masonry-tile 
                     class="post-list-item"
                     :post="post" 
@@ -88,7 +88,7 @@ export default {
                 this.chAdmin = this.channelInfo[0].channel_admin
                 this.chDate = this.channelInfo[0].channel_created_date
             })
-            db.collection('posts').where('channel', '==' ,this.chName).orderBy("date", "desc").limit(20).get().then(querySnapshot => {
+            db.collection('post_list_thumb').where('post_channel_name', '==' ,this.chName).orderBy("post_created_date", "desc").limit(20).get().then(querySnapshot => {
                     querySnapshot.forEach(doc => {
                         this.posts.push(doc.data())
                 });
