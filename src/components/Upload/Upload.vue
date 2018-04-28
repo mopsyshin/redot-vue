@@ -19,16 +19,10 @@
                >
         </textarea-autosize>
       </div>
-      <quill-editor ref="myQuillEditor"
-                    :options="editorOption"
-                    class="custom-editor"
-                    @change="onEditorChange($event)">
-      </quill-editor>
+      <div id="quill-editor"></div>
       <div id="toolbar" class="custom-toolbar">
-        <!-- Add buttons as you would before -->
         <select class="ql-size">
           <option value="small"></option>
-          <!-- Note a missing, thus falsy value, is used to reset to default -->
           <option selected></option>
           <option value="large"></option>
           <option value="huge"></option>
@@ -40,34 +34,27 @@
         <button class="ql-code-block"></button>
         <button class="ql-image"></button>
         <button class="ql-link"></button>
-        
-        <!-- But you can also add your own -->
       </div>
+      <button @click="resizeImg">
+        resize
+      </button>
       <div class="bottom-right-button-group">
           <button class="btn-positive" @click="addPost" :disabled="isEmpty">작성완료</button>
-      </div>
-      <div>
-        <input type="file"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { db, auth } from '../../firebase';
-import moment from 'moment';
+import { db, auth } from '../../firebase'
+import moment from 'moment'
 import Vue from 'vue'
 import Dropdown from '../GlobalModules/Dropdown'
-import quill from 'vue-quill-editor'
+import Quill from 'quill'
+import Converter from 'quill-delta-to-html'
+import resizebase64 from 'resize-base64';
 
-// require styles
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
-
-Vue.use(quill, {
-
-})
+var Editor;
 
 export default {
   name: 'Upload',
@@ -75,19 +62,16 @@ export default {
     return {
       imageUrl: '',
       title: '',
-      content: '',
       selectedChannel: 'Vue',
       postContents: '',
       selectedChannelColor: '',
-      editorOption: {
-            // debug: 'info',
-            modules: {
-              toolbar: '#toolbar',
-            },
-            placeholder: '본문을 입력해주세요',
-            readOnly: true,
-            theme: 'snow'
-      },
+      content: {
+        ops: [
+          {
+            insert: '',
+          }
+        ],
+      }
     }
   },
   computed: {
@@ -105,17 +89,40 @@ export default {
       return newArr
     },
     isEmpty() {
-      if ( this.title | this.content == '') {
+      if ( this.title == '') {
         return true
       } else {
         return false
       }
     }
   },
+  mounted() {
+   Editor = new Quill('#quill-editor', {
+      bounds: '#quill-editor',
+      modules: {
+        toolbar: {
+          container: '#toolbar',
+        },
+      },
+      placeholder: 'Free Write...',
+      theme: 'snow'
+    });
+  },
   methods: {
-    onEditorChange({ editor, html, text }) {
-        // console.log('editor change!', editor, html, text)
-        this.content = html
+    convertToHtml() {
+      var delta = Editor.getContents();
+      for ( var i = 0; i < delta.ops.length; i++) {
+        var str = delta.ops[i].insert
+        if ( str.image ){
+          delta.ops[i].insert.image = resizebase64(str.image, 500, 500)
+          console.log(delta.ops[i].insert.image)
+        }
+      }
+      var deltaOps = delta.ops
+      var cfg = {}
+      var converter = new Converter(deltaOps, cfg)
+      var html = converter.convert();
+      return html
     },
     channelSelected(chName) {
       this.selectedChannel = chName
@@ -126,17 +133,18 @@ export default {
       })
     },
     addPost() {
+      var html = this.convertToHtml()
       const ref = db.collection('posts').doc()
         ref.set({
           id: ref.id,
           color: this.selectedChannelColor,
           channel: this.selectedChannel,
           title: this.title,
-          body: this.content,
+          body: html,
           author: this.author,
           date: moment().format('YYYY-MM-DD, HH:mm:ss'),
           }).then(() => { 
-             alert('success')
+             this.toRouter('home')
         }).catch( err => {
           console.log(err)
         }) 

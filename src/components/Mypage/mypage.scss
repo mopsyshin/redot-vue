@@ -1,0 +1,156 @@
+.mypage-container {
+    .mypage-list {
+        margin-top: 32px;
+        .mypage-list-item {
+            display: flex;
+            margin: 20px;
+            .index {
+                width: 80px;
+            }
+            .mypage-name {
+                width: 160px;
+            }
+            .graph-bar {
+                height: 36px;
+                min-width: 30px;
+                border-radius: 100%;
+            }
+        }
+    }
+}
+.add-mypage-container {
+    padding: 60px 180px 60px 120px;
+    .mypage-preview {
+        display: inline;
+        align-items: center;
+        padding: 6px 24px;
+        color: #fff;
+        font-weight: 800;
+        border-radius: 100px;
+        float:right;
+        position: relative;
+        top: 50px;
+    }
+
+
+    .wrapper-color-select {
+        display: flex;
+        flex-wrap: wrap;
+        .color-item {
+            width: 20px;
+            height: 20px;
+            border-radius: 2px;
+            margin: 3px;
+            cursor: pointer;
+            &:hover {
+                transform: scale(1.2);
+            }
+            &.selected {
+                transform: scale(1.2);
+            }
+            &:before {
+                position: absolute;
+                transform: translate( -3px, -3px);
+                content: '';
+                width: 24px;
+                height: 24px;
+                border-radius: 2px;
+            }
+            &.selected:before {
+                border: 1px solid #000;
+            }
+        }
+    }
+}
+
+.mypage-page-container {
+    .mypage-banner-section {
+        margin-top: 56px;
+        width: 100%;
+        height: 270px;
+        background-image: url('./assets/ch-cover.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        text-align: center;
+        .button-box {
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            button {
+                background-color: #fff;
+                &:hover {
+                    background-color: #ddd;
+                    transform: translateY(-2px);
+                }
+            }
+            .btn-mypage-change-image {
+                width: 34px;
+                height: 34px;
+                border-radius: 34px;
+                margin: 0px 16px 16px 0px;
+                img {
+                    width: 20px;
+                }
+            }
+            .btn-mypage-setting {
+                width: 34px;
+                height: 34px;
+                border-radius: 34px;
+                margin: 0px 16px 16px 0px;
+                img {
+                    width: 20px;
+                }
+            }
+            .btn-mypage-follow {
+                height: 35px;
+                padding: 0px 24px;
+                margin: 0px 16px 16px 0px;
+                border-radius: 40px;
+                font-size: 14px;
+                color: $dark-grey1;
+            }
+        }
+    }
+    .container-fullsize {
+        padding-top: 0px;
+        margin-top: 0px;
+    }
+    .mypage-initial {
+        position: absolute;
+        width: 76px;
+        height: 76px;
+        border-radius: 76px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-46px);
+        border: 3px solid;
+        font-size: 42px;
+        font-weight: 900;
+        box-shadow: $shadow-2;
+        div {
+            position: relative;
+            top: 3px;
+        }
+    }
+    .mypage-info {
+        margin-top: 8px;
+        margin-left: 96px;
+        .mypage-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .mypage-desc {
+            font-size: 14px;
+            color: $light-grey1;
+        }
+    }
+}

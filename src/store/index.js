@@ -89,7 +89,7 @@ const store = new Vuex.Store({
             })
             var channels = []
             var recoCh = []
-            db.collection('channel').orderBy("channel_created_date").limit(10)
+            db.collection('channel').orderBy("channel_created_date")
             .get().then( querySnapshot => {
               querySnapshot.forEach(doc => {
                 channels.push(doc.data())

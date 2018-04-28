@@ -95,7 +95,7 @@ import moment from 'moment';
                 channel_desc: this.channelDesc,
                 channel_created_date: moment().format('YYYY-MM-DD, HH:mm:ss'),
                 }).then(() => { 
-                    alert('success')
+                    this.toRouter('home')
             })
         },
     },

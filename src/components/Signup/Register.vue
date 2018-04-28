@@ -103,7 +103,7 @@ export default {
             nickname: this.nickname,
             date: moment().format('YYYY-MM-DD, HH:mm:ss'),
           }).then(() => {
-                this.$router.push({ name : 'home' })
+                this.toRouter('home')
             }).catch( error => {
                 alert(error)
                 this.submitProcess = false
