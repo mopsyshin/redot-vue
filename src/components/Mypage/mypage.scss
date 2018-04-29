@@ -125,24 +125,26 @@
         position: absolute;
         width: 76px;
         height: 76px;
-        border-radius: 76px;
         background-color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
         transform: translateY(-46px);
-        border: 3px solid;
         font-size: 42px;
         font-weight: 900;
         box-shadow: $shadow-2;
-        div {
-            position: relative;
-            top: 3px;
+        overflow: hidden;
+        box-shadow: 4px 6px 12px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        border-radius: 76px;
+        img {
+            width: 50%;
         }
     }
     .mypage-info {
         margin-top: 8px;
         margin-left: 96px;
+        margin-bottom: 40px;
         .mypage-name {
             font-size: 22px;
             font-weight: 700;

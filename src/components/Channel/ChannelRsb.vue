@@ -1,5 +1,5 @@
 <template>
-    <div class="channel-rsb">
+    <div class="channel-rsb rsb-notice-type">
         <div class="rsb-section">
             <div class="section-title">
             Number of Channels

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-rsb">
+  <div class="home-rsb rsb-notice-type">
       <div class="rsb-section">
         <div class="section-title">
           Notice

@@ -27,13 +27,12 @@
 .rsb-view {
   display: block;
   position: fixed;
-  padding: 42px 36px;
   top: 56px;
   right: 0;
   width: 360px;
-  min-height: 100vh;
   background-color: #fff;
   box-shadow: $shadow-2;
+  overflow: scroll;
   &.close {
     opacity: 0;
     transform: translateX(100%)

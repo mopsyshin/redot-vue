@@ -11,7 +11,7 @@
       <button class="btn-toggle-rsb" @click="rsbToggle" >
         <img src="@/assets/icn-down.svg" alt="" :class="{ close : !rsbIsOpen}">
       </button>
-      <div class="rsb-view" :class="{ close : !rsbIsOpen }">
+      <div v-calcRsbHeight class="rsb-view" :class="{ close : !rsbIsOpen }">
         <transition name="rsb-animation" mode="out-in" appear>
           <!-- <keep-alive> -->
            <router-view name="rsb"></router-view>
@@ -33,8 +33,17 @@ export default {
         this.$redrawVueMasonry()
       },300)
     }
+  },
+  directives: {
+    calcRsbHeight: {
+      inserted: el => {
+        console.log(el)
+        var docuHeight = document.body.scrollHeight
+        console.log(docuHeight)
+        el.style.height = docuHeight - 56 + 'px'
+      }
+    }
   }
-
 }
 </script>
 

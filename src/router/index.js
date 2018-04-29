@@ -11,6 +11,7 @@ import AddChannel from '../components/Channel/AddChannel';
 import Mypage from '../components/Mypage/Mypage';
 import MypageRsb from '../components/Mypage/MypageRsb';
 import Post from '../components/Post/Post';
+import PostRsb from '../components/Post/PostRsb';
 import Setting from '../components/Setting/Setting';
 import Store from '../components/Store/Store';
 import Upload from '../components/Upload/Upload';
@@ -69,7 +70,7 @@ export default new Router({
           props: true,
           components: {
             mv: Post,
-            rsb: HomeRsb
+            rsb: PostRsb
           },
         },
         {
